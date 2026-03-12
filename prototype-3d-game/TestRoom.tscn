@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://b822m4na3p1wu"]
+
+[ext_resource type="Script" uid="uid://bgbihuvs5jxmn" path="res://Player.gd" id="1_54w8p"]
+[ext_resource type="Texture2D" uid="uid://byi6ve1ivm72y" path="res://icon.svg" id="1_cbkwy"]
+[ext_resource type="PackedScene" uid="uid://butmb556fwmm1" path="res://mannequiny_0_3_0.tscn" id="1_r742f"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_rxg2q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rxg2q"]
+albedo_color = Color(0.2903914, 0.14439449, 0.0024770251, 1)
+albedo_texture = ExtResource("1_cbkwy")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_glv2v"]
+size = Vector3(1.9920654, 0.001, 1.994751)
+
+[sub_resource type="BoxMesh" id="BoxMesh_b22ol"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r742f"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r742f"]
+radius = 0.2788086
+height = 1.4779663
+
+[node name="TestRoom" type="Node3D" unique_id=1932158316]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=608546344]
+transform = Transform3D(0.99985224, 0.017190646, 9.1193075e-10, 0.01415263, -0.8231534, 0.5676427, 0.009758146, -0.56755877, -0.823275, 0, -7.4329605, 0)
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_blur = 0.909
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=1612382667]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=1592968139]
+mesh = SubResource("PlaneMesh_rxg2q")
+surface_material_override/0 = SubResource("StandardMaterial3D_rxg2q")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=1384392196]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0020141602, 0.0029179752, -0.0060424805)
+shape = SubResource("BoxShape3D_glv2v")
+
+[node name="Wall4" type="StaticBody3D" parent="." unique_id=985306444]
+transform = Transform3D(200, 0, 0, 0, 25, 0, 0, 0, 1, 0, 11.153454, 99.87465)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall4" unique_id=724286093]
+mesh = SubResource("BoxMesh_b22ol")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall4" unique_id=839489400]
+shape = SubResource("BoxShape3D_r742f")
+
+[node name="Wall" type="StaticBody3D" parent="." unique_id=1366940054]
+transform = Transform3D(200, 0, 0, 0, 25, 0, 0, 0, 1, 0, 11.153454, -100.95424)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall" unique_id=400126908]
+mesh = SubResource("BoxMesh_b22ol")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall" unique_id=1749899978]
+shape = SubResource("BoxShape3D_r742f")
+
+[node name="Wall2" type="StaticBody3D" parent="." unique_id=29226709]
+transform = Transform3D(-8.742278e-06, 0, 1, 0, 25, 0, -200, 0, -4.371139e-08, -99.51073, 11.153454, -1.0715637)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall2" unique_id=482247311]
+mesh = SubResource("BoxMesh_b22ol")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2" unique_id=1499984433]
+shape = SubResource("BoxShape3D_r742f")
+
+[node name="Wall3" type="StaticBody3D" parent="." unique_id=865704153]
+transform = Transform3D(-8.742278e-06, 0, 1, 0, 25, 0, -200, 0, -4.371139e-08, 98.6707, 11.153454, -1.0715637)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall3" unique_id=1800239748]
+mesh = SubResource("BoxMesh_b22ol")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall3" unique_id=1958517604]
+shape = SubResource("BoxShape3D_r742f")
+
+[node name="Player" type="CharacterBody3D" parent="." unique_id=1213901525]
+script = ExtResource("1_54w8p")
+
+[node name="Mannequin" parent="Player" unique_id=1667956177 instance=ExtResource("1_r742f")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.16613054, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=300154298]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7611166, 0)
+shape = SubResource("CapsuleShape3D_r742f")
+
+[node name="Camera3D" type="Camera3D" parent="Player" unique_id=1368583884]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.4159492, 0.75402564)
