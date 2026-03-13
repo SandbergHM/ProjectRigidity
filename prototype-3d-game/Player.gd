@@ -1,17 +1,38 @@
 extends CharacterBody3D
 
+#region export variables
+
 @export var movement_speed: float = 10
-@export var fall_acceleration: float = 9.8
-@export var terminal_velocity: float = -50.0
 @export var jump_height: float = 5
 @export var rotation_speed: float = 0.002
+@export var sprint_speed: float = 5
+
+#endregion
+
+#region local variables
 
 var target_velocity = Vector3.ZERO
+var movement_boost: float = 0
+var collider = null
 
-@onready var mannequin: AnimationPlayer = $Mannequin/AnimationPlayer
+#endregion
+
+#region signals
+
+signal highlight(collider)
+
+#endregion
+
+#region onreadys
+
+@onready var interact_line = $InteractLine
+@onready var camera = $Camera3D
+
+#endregion
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	up_direction = Vector3.UP
 
 func _physics_process(delta: float) -> void:
 #region player movement
@@ -24,26 +45,41 @@ func _physics_process(delta: float) -> void:
 	direction.y = 0 # Prevent flying
 	direction = direction.normalized()
 	
+	if(Input.is_action_pressed("player_sprint")):
+		movement_boost = sprint_speed
+	else:
+		movement_boost = 0
 	
 	# Ground Velocity
-	target_velocity.x = direction.x * (movement_speed)
-	target_velocity.z = direction.z * (movement_speed)
+	target_velocity.x = direction.x * (movement_speed + movement_boost)
+	target_velocity.z = direction.z * (movement_speed + movement_boost)
 	
 	# Vertical Velocity
 	if not is_on_floor(): # If in the air, fall towards the floor
-		target_velocity.y = max(target_velocity.y - (fall_acceleration * delta),terminal_velocity)
+		target_velocity.y = max(target_velocity.y - (globals.FALL_ACCELLERATION * delta),globals.TERMINAL_VELOCITY)
 	elif Input.is_action_just_pressed("3D_player_jump") and is_on_floor():
 		target_velocity.y = jump_height
-		was_on_floor = false
 	else:
 		target_velocity.y = 0 
 		
 	# Moving the Character
 	velocity = target_velocity
+	#animation_player()
 	move_and_slide()	
-	animation_player()
+
 #endregion
 
+#region object highlight
+	#Highlight objects
+	interact_line.global_transform.basis = $Camera3D.global_transform.basis
+	if interact_line.is_colliding():
+		collider = interact_line.get_collider()
+		if collider is RigidBody3D and collider.is_in_group("interactable"):
+			emit_signal("highlight", collider)
+	else:
+		emit_signal("highlight", null)
+	
+#endregion
 
 func _unhandled_input(event: InputEvent):
 #region Player rotation
@@ -53,21 +89,3 @@ func _unhandled_input(event: InputEvent):
 		$Camera3D.rotation.x -= mouse_motion_event.relative.y * rotation_speed
 		$Camera3D.rotation.x = clampf($Camera3D.rotation.x, PI/-2, PI/2)
 #endregion
-
-var was_on_floor : bool = false
-
-func animation_player():
-	if is_on_floor() and not was_on_floor: #Landing animation
-		mannequin.stop()
-		mannequin.play("air_land")
-		was_on_floor = true
-	elif velocity != null and is_on_floor() and not mannequin.current_animation == "air_land": #Run/idle animation
-		if velocity.x != 0 or velocity.y != 0:
-			mannequin.play("run")
-		else:
-			mannequin.play("idle")
-	elif Input.is_action_just_pressed("3D_player_jump") and is_on_floor(): #Jump animation
-		mannequin.stop()
-		mannequin.play("air_jump")
-
-	print(mannequin.assigned_animation)

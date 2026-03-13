@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bgbihuvs5jxmn" path="res://Player.gd" id="1_54w8p"]
 [ext_resource type="Texture2D" uid="uid://byi6ve1ivm72y" path="res://icon.svg" id="1_cbkwy"]
-[ext_resource type="Script" uid="uid://65gbo0ibr6q" path="res://3d/Objects/Interacteable/Box/box.gd" id="4_gcbeg"]
+[ext_resource type="Script" uid="uid://65gbo0ibr6q" path="res://box.gd" id="4_gcbeg"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_rxg2q"]
 
@@ -99,7 +99,7 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1
 
 [node name="InteractLine" type="RayCast3D" parent="Player" unique_id=1576782527]
 transform = Transform3D(1, 0, 0, 0, -0.9999999, 8.742277e-08, 0, -8.742277e-08, -0.9999999, 0, 1.1760918, 0.008747548)
-target_position = Vector3(0, 0, -3)
+target_position = Vector3(0, 0, -5)
 debug_shape_custom_color = Color(1, 1, 1, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Player" unique_id=954059925]
