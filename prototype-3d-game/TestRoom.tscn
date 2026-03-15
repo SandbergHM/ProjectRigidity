@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://b822m4na3p1wu"]
 
-[ext_resource type="Script" uid="uid://bgbihuvs5jxmn" path="res://Player.gd" id="1_54w8p"]
 [ext_resource type="Texture2D" uid="uid://byi6ve1ivm72y" path="res://icon.svg" id="1_cbkwy"]
-[ext_resource type="Script" uid="uid://65gbo0ibr6q" path="res://3d/Objects/Interacteable/Box/box.gd" id="4_gcbeg"]
+[ext_resource type="PackedScene" uid="uid://ex78oe40bj3n" path="res://player.tscn" id="2_cbkwy"]
+[ext_resource type="PackedScene" uid="uid://br5kqtdkorum0" path="res://3d/Objects/Interacteable/Box/box.tscn" id="3_cbkwy"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_rxg2q"]
 
@@ -16,19 +16,6 @@ size = Vector3(1.9920654, 0.001, 1.994751)
 [sub_resource type="BoxMesh" id="BoxMesh_b22ol"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_r742f"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r742f"]
-radius = 0.2788086
-height = 1.4779663
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_cbkwy"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_c3cbu"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cbkwy"]
-albedo_color = Color(7.2196127e-07, 0.38412395, 0.38461852, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_fk7fr"]
 
 [node name="TestRoom" type="Node3D" unique_id=1932158316]
 
@@ -87,39 +74,19 @@ mesh = SubResource("BoxMesh_b22ol")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Wall3" unique_id=1958517604]
 shape = SubResource("BoxShape3D_r742f")
 
-[node name="Player" type="CharacterBody3D" parent="." unique_id=1213901525]
-script = ExtResource("1_54w8p")
+[node name="Player" parent="." unique_id=2007265276 instance=ExtResource("2_cbkwy")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=300154298]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7611166, 0)
-shape = SubResource("CapsuleShape3D_r742f")
+[node name="Box" parent="." unique_id=81461789 instance=ExtResource("3_cbkwy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0203242, 0.8417978, 4.9315405)
 
-[node name="Camera3D" type="Camera3D" parent="Player" unique_id=1368583884]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.2162064, -0.014729947)
+[node name="Box2" parent="." unique_id=576795495 instance=ExtResource("3_cbkwy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.558023, 0.8417978, 4.9315405)
 
-[node name="InteractLine" type="RayCast3D" parent="Player" unique_id=1576782527]
-transform = Transform3D(1, 0, 0, 0, -0.9999999, 8.742277e-08, 0, -8.742277e-08, -0.9999999, 0, 1.1760918, 0.008747548)
-target_position = Vector3(0, 0, -3)
-debug_shape_custom_color = Color(1, 1, 1, 1)
+[node name="Box3" parent="." unique_id=255719713 instance=ExtResource("3_cbkwy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0203242, 0.8417978, 6.878457)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player" unique_id=954059925]
-transform = Transform3D(0.54721797, 0, 0, 0, 0.730294, 0, 0, 0, 0.5706676, 0, 0.7633015, 0)
-mesh = SubResource("CapsuleMesh_cbkwy")
+[node name="Box4" parent="." unique_id=1035012523 instance=ExtResource("3_cbkwy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.283254, 0.8417978, 4.9315405)
 
-[node name="Box" type="RigidBody3D" parent="." unique_id=674862309 groups=["interactable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5170305, 2.6705475, 5.001701)
-mass = 15.0
-contact_monitor = true
-max_contacts_reported = 1
-constant_force = Vector3(0, 9.8, 0)
-script = ExtResource("4_gcbeg")
-
-[node name="BoxModel" type="MeshInstance3D" parent="Box" unique_id=934885810]
-transform = Transform3D(0.99451214, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-mesh = SubResource("BoxMesh_c3cbu")
-surface_material_override/0 = SubResource("StandardMaterial3D_cbkwy")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Box" unique_id=1966114975]
-shape = SubResource("BoxShape3D_fk7fr")
-
-[connection signal="highlight" from="Player" to="Box" method="_on_player_highlight"]
+[node name="Box5" parent="." unique_id=1528923662 instance=ExtResource("3_cbkwy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.961006, 0.8417978, 4.9315405)

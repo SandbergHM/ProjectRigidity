@@ -1,11 +1,12 @@
 extends CharacterBody3D
-
+class_name Player
 #region export variables
 
 @export var movement_speed: float = 10
 @export var jump_height: float = 5
 @export var rotation_speed: float = 0.002
 @export var sprint_speed: float = 5
+
 
 #endregion
 
@@ -14,12 +15,7 @@ extends CharacterBody3D
 var target_velocity = Vector3.ZERO
 var movement_boost: float = 0
 var collider = null
-
-#endregion
-
-#region signals
-
-signal highlight(collider)
+var lock_rotation: bool = false
 
 #endregion
 
@@ -33,6 +29,11 @@ signal highlight(collider)
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	up_direction = Vector3.UP
+	signal_bus.lock_player_rotation.connect(_on_lock_player_rotation)
+	
+
+func _on_lock_player_rotation(lock):
+	lock_rotation = lock
 
 func _physics_process(delta: float) -> void:
 #region player movement
@@ -74,16 +75,18 @@ func _physics_process(delta: float) -> void:
 	interact_line.global_transform.basis = $Camera3D.global_transform.basis
 	if interact_line.is_colliding():
 		collider = interact_line.get_collider()
-		if collider is RigidBody3D and collider.is_in_group("interactable"):
-			emit_signal("highlight", collider)
+		if collider != null and collider.is_in_group("interactable"):
+			signal_bus.player_highlight.emit(collider)
+		else:
+			signal_bus.player_highlight.emit(null)
 	else:
-		emit_signal("highlight", null)
+		signal_bus.player_highlight.emit(null)
 	
 #endregion
 
 func _unhandled_input(event: InputEvent):
 #region Player rotation
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and not lock_rotation:
 		var mouse_motion_event: InputEventMouseMotion = event as InputEventMouseMotion
 		rotation.y -= mouse_motion_event.relative.x * rotation_speed
 		$Camera3D.rotation.x -= mouse_motion_event.relative.y * rotation_speed

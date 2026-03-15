@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://dbopw1jf8ldg5"]
+
+[ext_resource type="Texture2D" uid="uid://dkvupub4psbja" path="res://InventoryAssets/Items/Icons/Goo.png" id="1_svmt0"]
+[ext_resource type="Script" uid="uid://bkwj68fe5yb1n" path="res://item_base.gd" id="1_ub4i3"]
+
+[resource]
+script = ExtResource("1_ub4i3")
+display_name = "Goo"
+icon = ExtResource("1_svmt0")
+max_stack_size = 128
+metadata/_custom_type_script = "uid://bkwj68fe5yb1n"

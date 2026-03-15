@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://bcugogeqvmxds"]
+
+[ext_resource type="Script" uid="uid://bkwj68fe5yb1n" path="res://item_base.gd" id="1_m66rm"]
+[ext_resource type="Texture2D" uid="uid://ccjtljhtdisln" path="res://InventoryAssets/Items/Icons/Wood.png" id="1_qti6l"]
+
+[resource]
+script = ExtResource("1_m66rm")
+display_name = "Wood"
+icon = ExtResource("1_qti6l")
+max_stack_size = 64
+metadata/_custom_type_script = "uid://bkwj68fe5yb1n"

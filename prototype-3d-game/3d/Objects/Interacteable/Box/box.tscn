@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://br5kqtdkorum0"]
+
+[ext_resource type="Script" uid="uid://65gbo0ibr6q" path="res://3d/Objects/Interacteable/Box/box.gd" id="1_g2tbl"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_c3cbu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cbkwy"]
+albedo_color = Color(7.2196127e-07, 0.38412395, 0.38461852, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fk7fr"]
+
+[node name="Box" type="RigidBody3D" unique_id=81461789 groups=["interactable"]]
+mass = 15.0
+contact_monitor = true
+max_contacts_reported = 1
+constant_force = Vector3(0, 9.8, 0)
+script = ExtResource("1_g2tbl")
+
+[node name="BoxModel" type="MeshInstance3D" parent="." unique_id=465876615]
+transform = Transform3D(0.99451214, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_c3cbu")
+surface_material_override/0 = SubResource("StandardMaterial3D_cbkwy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1399580208]
+shape = SubResource("BoxShape3D_fk7fr")

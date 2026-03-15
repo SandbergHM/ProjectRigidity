@@ -1,0 +1,128 @@
+[gd_scene format=3 uid="uid://ex78oe40bj3n"]
+
+[ext_resource type="Script" uid="uid://bgbihuvs5jxmn" path="res://Player.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://bh14cuv5klay" path="res://InventoryAssets/InventoryManager.gd" id="2_i3pqv"]
+[ext_resource type="PackedScene" uid="uid://cctdxjlwqxktj" path="res://InventoryAssets/inventory_slot.tscn" id="3_i3pqv"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r742f"]
+radius = 0.2788086
+height = 1.4600677
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_cbkwy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_i3pqv"]
+font_size = 19
+
+[node name="Player" type="CharacterBody3D" unique_id=2007265276]
+script = ExtResource("1_4flbx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2020413765]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76312315, 0)
+shape = SubResource("CapsuleShape3D_r742f")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1040479386]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.2162064, -0.014729947)
+
+[node name="InteractLine" type="RayCast3D" parent="." unique_id=561931498]
+transform = Transform3D(1, 0, 0, 0, -0.9999999, 8.742277e-08, 0, -8.742277e-08, -0.9999999, 0, 1.1760918, 0.008747548)
+target_position = Vector3(0, 0, -3)
+debug_shape_custom_color = Color(1, 1, 1, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=20273865]
+transform = Transform3D(0.54721797, 0, 0, 0, 0.730294, 0, 0, 0, 0.5706676, 0, 0.7633015, 0)
+mesh = SubResource("CapsuleMesh_cbkwy")
+
+[node name="Inventory" type="Node" parent="." unique_id=1977054559]
+script = ExtResource("2_i3pqv")
+
+[node name="InventoryUI" type="Panel" parent="Inventory" unique_id=1079033319]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -184.0
+offset_right = 280.0
+offset_bottom = 184.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SlotContainer" type="GridContainer" parent="Inventory/InventoryUI" unique_id=1590090007]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -156.0
+offset_right = 260.0
+offset_bottom = 156.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 5
+
+[node name="InventorySlot" parent="Inventory/InventoryUI/SlotContainer" unique_id=1025314128 instance=ExtResource("3_i3pqv")]
+layout_mode = 2
+
+[node name="InventorySlot2" parent="Inventory/InventoryUI/SlotContainer" unique_id=1861364031 instance=ExtResource("3_i3pqv")]
+layout_mode = 2
+
+[node name="InventorySlot3" parent="Inventory/InventoryUI/SlotContainer" unique_id=832974444 instance=ExtResource("3_i3pqv")]
+layout_mode = 2
+
+[node name="InventorySlot4" parent="Inventory/InventoryUI/SlotContainer" unique_id=1363367659 instance=ExtResource("3_i3pqv")]
+layout_mode = 2
+
+[node name="InventorySlot5" parent="Inventory/InventoryUI/SlotContainer" unique_id=375490059 instance=ExtResource("3_i3pqv")]
+layout_mode = 2
+
+[node name="InventorySlot6" parent="Inventory/InventoryUI/SlotContainer" unique_id=1450319165 instance=ExtResource("3_i3pqv")]
+layout_mode = 2
+
+[node name="InventorySlot7" parent="Inventory/InventoryUI/SlotContainer" unique_id=232470807 instance=ExtResource("3_i3pqv")]
+layout_mode = 2
+
+[node name="InventorySlot8" parent="Inventory/InventoryUI/SlotContainer" unique_id=1062373034 instance=ExtResource("3_i3pqv")]
+layout_mode = 2
+
+[node name="InventorySlot9" parent="Inventory/InventoryUI/SlotContainer" unique_id=1420814226 instance=ExtResource("3_i3pqv")]
+layout_mode = 2
+
+[node name="InventorySlot10" parent="Inventory/InventoryUI/SlotContainer" unique_id=1094361141 instance=ExtResource("3_i3pqv")]
+layout_mode = 2
+
+[node name="InventorySlot11" parent="Inventory/InventoryUI/SlotContainer" unique_id=995836841 instance=ExtResource("3_i3pqv")]
+layout_mode = 2
+
+[node name="InventorySlot12" parent="Inventory/InventoryUI/SlotContainer" unique_id=1595352296 instance=ExtResource("3_i3pqv")]
+layout_mode = 2
+
+[node name="InventorySlot13" parent="Inventory/InventoryUI/SlotContainer" unique_id=1704339495 instance=ExtResource("3_i3pqv")]
+layout_mode = 2
+
+[node name="InventorySlot14" parent="Inventory/InventoryUI/SlotContainer" unique_id=56686650 instance=ExtResource("3_i3pqv")]
+layout_mode = 2
+
+[node name="InventorySlot15" parent="Inventory/InventoryUI/SlotContainer" unique_id=182282324 instance=ExtResource("3_i3pqv")]
+layout_mode = 2
+
+[node name="InfoText" type="Label" parent="Inventory/InventoryUI" unique_id=1157427229]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -280.0
+offset_top = -23.0
+offset_right = 280.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Contain info about the selected item"
+label_settings = SubResource("LabelSettings_i3pqv")
+horizontal_alignment = 1
+vertical_alignment = 1
