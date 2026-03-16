@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://byi6ve1ivm72y" path="res://icon.svg" id="1_cbkwy"]
 [ext_resource type="PackedScene" uid="uid://ex78oe40bj3n" path="res://player.tscn" id="2_cbkwy"]
 [ext_resource type="PackedScene" uid="uid://br5kqtdkorum0" path="res://3d/Objects/Interacteable/Box/box.tscn" id="3_cbkwy"]
-[ext_resource type="PackedScene" uid="uid://cfq73wendo5qb" path="res://InventoryAssets/Items/WorldItems/world_item_goo.tscn" id="4_gcbeg"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_rxg2q"]
 
@@ -91,7 +90,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.283254, 0.8417978, 4.931540
 
 [node name="Box5" parent="." unique_id=1528923662 instance=ExtResource("3_cbkwy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.961006, 0.8417978, 4.9315405)
-
-[node name="WorldItem_Goo" parent="." unique_id=1369959344 instance=ExtResource("4_gcbeg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2)
-can_interact = null

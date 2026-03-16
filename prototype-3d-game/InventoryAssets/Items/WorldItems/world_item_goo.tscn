@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cfq73wendo5qb"]
+
+[ext_resource type="Script" uid="uid://e4dlpqkmhabu" path="res://InventoryAssets/Items/worlditem.gd" id="1_b1fbp"]
+[ext_resource type="ArrayMesh" uid="uid://bjlhco0x10xv7" path="res://InventoryAssets/Items/Models/Goo.obj" id="2_tvgsq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n244r"]
+albedo_color = Color(1, 0.078431375, 1, 1)
+roughness = 0.45
+rim_enabled = true
+rim = 0.65
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gj8dk"]
+points = PackedVector3Array(0.44353163, 0.27860403, 0.9781021, 0.12712952, 0.3558, -1.1511147, 0.048550464, 0.041569665, -1.077834, -1.1703026, 0.3163502, 0.18612772, 0.80082643, -0.82987064, 0.2277638, -0.973218, -0.6269281, 0.028500997, 0.75633186, 0.7490116, 0.2646849, 1.3688748, -0.07752379, 0.19087557, -0.31120235, -0.35695824, 0.8689144, -0.61836874, 0.8258668, 0.18553463, -0.46755135, -0.43417835, -0.9220796, -0.26819304, 0.6353309, -0.9993829, 0.7147619, 0.3151866, -0.87257624, 0.95964456, -0.43372402, 0.7429564, 0.20685153, 0.834206, -0.7624667, 0.482685, -0.07669143, -0.997086, -1.1939265, -0.3180534, -0.24921632, -0.5051992, -0.8680135, -0.010294821, -0.6211873, 0.5927486, 0.54109126, -0.54188377, -0.7459027, -0.6007623, 1.0025707, 0.59865236, 0.4675507, 0.36324656, -0.6668159, 0.69757223, 1.2315433, 0.3173334, -0.010296813, 1.1503484, -0.4700984, -0.010472158, -0.30324453, 0.8233353, 0.38014683, -0.9705851, 0.62913364, -0.049932692, -0.62287176, -0.23479834, -0.95794946, -0.85674614, -0.5491724, 0.3831097, 0.50929743, -0.4582279, -0.5870266, 0.8407462, -0.07689992, 0.9012414, -0.50479424, 0.120373406, 0.7801625, 0.32486725, 0.47597075, 0.8986904)
+
+[node name="WorldItem_Goo" type="RigidBody3D" unique_id=1369959344 groups=["interactable"]]
+script = ExtResource("1_b1fbp")
+item_name = "Goo"
+interact_prompt = "Pickup Goo"
+
+[node name="Goo" type="MeshInstance3D" parent="." unique_id=1866446664]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = ExtResource("2_tvgsq")
+surface_material_override/0 = SubResource("StandardMaterial3D_n244r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=414157925]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_gj8dk")

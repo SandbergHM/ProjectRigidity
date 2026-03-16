@@ -5,4 +5,6 @@ extends Node
 signal player_highlight()
 ##Control player rotation
 signal lock_player_rotation(lock:bool)
+##Grant player an item from anywhere
+signal on_give_player_item (item:Item, amount:int)
 #endregion

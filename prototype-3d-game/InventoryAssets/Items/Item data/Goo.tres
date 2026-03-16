@@ -7,5 +7,5 @@
 script = ExtResource("1_ub4i3")
 display_name = "Goo"
 icon = ExtResource("1_svmt0")
-max_stack_size = 128
+max_stack_size = 4
 metadata/_custom_type_script = "uid://bkwj68fe5yb1n"

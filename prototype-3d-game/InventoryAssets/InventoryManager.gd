@@ -10,6 +10,8 @@ var slots : Array[Inventory_slot]
 func _ready():
 	toggle_window(false)
 	
+	signal_bus.on_give_player_item.connect(on_give_player_item)
+	
 	for child in get_node("InventoryUI/SlotContainer").get_children():
 		slots.append(child)
 		child.set_item(null)

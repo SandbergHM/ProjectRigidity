@@ -21,7 +21,6 @@ var lock_rotation: bool = false
 
 #region onreadys
 
-@onready var interact_line = $InteractLine
 @onready var camera = $Camera3D
 
 #endregion
@@ -70,19 +69,8 @@ func _physics_process(delta: float) -> void:
 
 #endregion
 
-#region object highlight
-	#Highlight objects
-	interact_line.global_transform.basis = $Camera3D.global_transform.basis
-	if interact_line.is_colliding():
-		collider = interact_line.get_collider()
-		if collider != null and collider.is_in_group("interactable"):
-			signal_bus.player_highlight.emit(collider)
-		else:
-			signal_bus.player_highlight.emit(null)
-	else:
-		signal_bus.player_highlight.emit(null)
-	
-#endregion
+
+
 
 func _unhandled_input(event: InputEvent):
 #region Player rotation
