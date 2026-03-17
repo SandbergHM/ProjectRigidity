@@ -45,14 +45,18 @@ func _physics_process(delta: float) -> void:
 	direction.y = 0 # Prevent flying
 	direction = direction.normalized()
 	
-	if(Input.is_action_pressed("player_sprint")):
+	if(Input.is_action_pressed("player_sprint") and is_on_floor()):
 		movement_boost = sprint_speed
 	else:
 		movement_boost = 0
 	
-	# Ground Velocity
-	target_velocity.x = direction.x * (movement_speed + movement_boost)
-	target_velocity.z = direction.z * (movement_speed + movement_boost)
+	if is_on_floor():
+		target_velocity.x = direction.x * (movement_speed + movement_boost)
+		target_velocity.z = direction.z * (movement_speed + movement_boost)
+	else:
+		var air_control: float = 1  # 0 = no control, 1 = full control
+		target_velocity.x = lerp(target_velocity.x, direction.x * movement_speed, air_control)
+		target_velocity.z = lerp(target_velocity.z, direction.z * movement_speed, air_control)
 	
 	# Vertical Velocity
 	if not is_on_floor(): # If in the air, fall towards the floor
@@ -68,9 +72,6 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()	
 
 #endregion
-
-
-
 
 func _unhandled_input(event: InputEvent):
 #region Player rotation

@@ -19,7 +19,7 @@ func set_item (new_item : Item):
 		icon.texture = item.icon
 		
 	update_quantity_text()
-	
+
 func add_item ():
 	item_quantity += 1
 	update_quantity_text()
@@ -37,13 +37,11 @@ func update_quantity_text():
 	else:
 		quantity_text.text = str(item_quantity)
 
-
 func _on_mouse_entered() -> void:
 	if item == null:
 		inventory.info_text.text = ""
 	else:
 		inventory.info_text.text = item.display_name
-
 
 func _on_mouse_exited() -> void:
 	inventory.info_text.text = ""
