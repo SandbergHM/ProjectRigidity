@@ -1,7 +1,5 @@
 [gd_scene format=3 uid="uid://br5kqtdkorum0"]
 
-[ext_resource type="Script" uid="uid://65gbo0ibr6q" path="res://3d/Objects/Interacteable/Box/box.gd" id="1_g2tbl"]
-
 [sub_resource type="BoxMesh" id="BoxMesh_c3cbu"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cbkwy"]
@@ -14,7 +12,6 @@ mass = 15.0
 contact_monitor = true
 max_contacts_reported = 1
 constant_force = Vector3(0, 9.8, 0)
-script = ExtResource("1_g2tbl")
 
 [node name="BoxModel" type="MeshInstance3D" parent="." unique_id=465876615]
 transform = Transform3D(0.99451214, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)

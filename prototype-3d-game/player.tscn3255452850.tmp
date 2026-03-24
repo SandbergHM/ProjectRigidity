@@ -20,7 +20,13 @@ font_size = 19
 
 [node name="Player" type="CharacterBody3D" unique_id=2007265276]
 script = ExtResource("1_4flbx")
-throw_force = 50.0
+player_health = null
+movement_speed = null
+jump_height = null
+rotation_speed = null
+sprint_speed = null
+push_force = null
+throw_force = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2020413765]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.76312315, 0)

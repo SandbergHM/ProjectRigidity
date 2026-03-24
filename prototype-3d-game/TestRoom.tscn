@@ -36,7 +36,6 @@ mesh = SubResource("PlaneMesh_rxg2q")
 surface_material_override/0 = SubResource("StandardMaterial3D_rxg2q")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=1384392196]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0020141602, 0.0029179752, -0.0060424805)
 shape = SubResource("BoxShape3D_glv2v")
 
 [node name="Wall4" type="StaticBody3D" parent="." unique_id=985306444]
@@ -79,18 +78,23 @@ shape = SubResource("BoxShape3D_r742f")
 
 [node name="Box" parent="." unique_id=81461789 instance=ExtResource("3_cbkwy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0203242, 0.8417978, 4.9315405)
+mass = 5.0
 
 [node name="Box2" parent="." unique_id=576795495 instance=ExtResource("3_cbkwy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.558023, 0.8417978, 4.9315405)
+mass = 5.0
 
 [node name="Box3" parent="." unique_id=255719713 instance=ExtResource("3_cbkwy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0203242, 0.8417978, 6.878457)
+mass = 5.0
 
 [node name="Box4" parent="." unique_id=1035012523 instance=ExtResource("3_cbkwy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.283254, 0.8417978, 4.9315405)
+mass = 5.0
 
 [node name="Box5" parent="." unique_id=1528923662 instance=ExtResource("3_cbkwy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.961006, 0.8417978, 4.9315405)
+mass = 5.0
 
 [node name="WorldItem_Goo" parent="." unique_id=1369959344 instance=ExtResource("4_gcbeg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2)

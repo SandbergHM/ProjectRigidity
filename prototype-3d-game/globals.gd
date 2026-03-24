@@ -1,32 +1,29 @@
 extends Node
 class_name globals
 
+#region constants
+# Highlight outline color constants
+const COLOR_RED = Color(1.0, 0.0, 0.0,1.0)
+const COLOR_GREEN = Color(0.0, 1.0, 0.0, 1.0)
+const COLOR_BLUE = Color(0.0, 0.0, 1.0, 1.0)
+const COLOR_YELLOW = Color(1.0, 1.0, 0.0, 1.0)
+const COLOR_CYAN = Color(0.0, 1.0, 1.0, 1.0)
+const COLOR_MAGENTA = Color(1.0, 0.0, 1.0, 1.0)
+const COLOR_WHITE = Color(1.0, 1.0, 1.0, 1.0)
+
+# Physics constants for object interactions such as gravity and terminal velocity
 const FALL_ACCELLERATION = 9.8
 const TERMINAL_VELOCITY = -50.0
+#endregion
 
-#region item highlight
-static func item_highlight(mesh_instance: MeshInstance3D, brightness: float = 0.2) -> MeshInstance3D:
-	var overlay = StandardMaterial3D.new()
-	overlay.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	overlay.albedo_color = Color(brightness, brightness, brightness, 0.7)
-	#overlay.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	overlay.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
-	#overlay.cull_mode = BaseMaterial3D.CULL_BACK
-	#overlay.depth_draw_mode = BaseMaterial3D.DEPTH_DRAW_DISABLED
-
-	var mat = mesh_instance.get_active_material(0)
-	if mat:
-		var mat_copy = mat.duplicate()
-		mat_copy.next_pass = overlay
-		mesh_instance.set_surface_override_material(0, mat_copy)
-
-	else:
-		mesh_instance.set_surface_override_material(0, overlay)
-	return mesh_instance
-
-static func remove_item_highlight(mesh_instance: MeshInstance3D) -> MeshInstance3D:
-	var mat = mesh_instance.get_active_material(0)
-	if mat:
-		mat.next_pass = null
-	return mesh_instance
+#region enums
+enum Player_state {
+	DEAD,
+	IDLE,
+	JUMP,
+	LIFT,
+	FALL,
+	RUN,
+	SPRINT
+}
 #endregion
