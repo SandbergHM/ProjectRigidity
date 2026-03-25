@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ex78oe40bj3n" path="res://player.tscn" id="2_cbkwy"]
 [ext_resource type="PackedScene" uid="uid://br5kqtdkorum0" path="res://3d/Objects/Interacteable/Box/box.tscn" id="3_cbkwy"]
 [ext_resource type="PackedScene" uid="uid://cfq73wendo5qb" path="res://InventoryAssets/Items/WorldItems/world_item_goo.tscn" id="4_gcbeg"]
+[ext_resource type="Script" uid="uid://bplsxmd2v488e" path="res://3d/Entities/Enemies/enemy_base.gd" id="5_c3cbu"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_rxg2q"]
 
@@ -17,6 +18,10 @@ size = Vector3(1.9920654, 0.001, 1.994751)
 [sub_resource type="BoxMesh" id="BoxMesh_b22ol"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_r742f"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_gcbeg"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c3cbu"]
 
 [node name="TestRoom" type="Node3D" unique_id=1932158316]
 
@@ -75,6 +80,7 @@ mesh = SubResource("BoxMesh_b22ol")
 shape = SubResource("BoxShape3D_r742f")
 
 [node name="Player" parent="." unique_id=2007265276 instance=ExtResource("2_cbkwy")]
+throw_force = 10.0
 
 [node name="Box" parent="." unique_id=81461789 instance=ExtResource("3_cbkwy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0203242, 0.8417978, 4.9315405)
@@ -98,4 +104,23 @@ mass = 5.0
 
 [node name="WorldItem_Goo" parent="." unique_id=1369959344 instance=ExtResource("4_gcbeg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2)
+mass = 0.1
+contact_monitor = true
+max_contacts_reported = 1
 can_interact = null
+
+[node name="Enemy" type="CharacterBody3D" parent="." unique_id=960548306]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5463006, -8.932043)
+script = ExtResource("5_c3cbu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Enemy" unique_id=1169661017]
+mesh = SubResource("CapsuleMesh_gcbeg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy" unique_id=180282914]
+shape = SubResource("CapsuleShape3D_c3cbu")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy" unique_id=1677389978]
+
+[node name="DamageCooldown" type="Timer" parent="Enemy" unique_id=808132034]
+
+[connection signal="timeout" from="Enemy/DamageCooldown" to="Enemy" method="_on_damage_cooldown_timeout"]

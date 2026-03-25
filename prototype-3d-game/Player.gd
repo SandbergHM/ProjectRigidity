@@ -87,13 +87,13 @@ func _physics_process(delta: float) -> void:
 	velocity = target_velocity
 	move_and_slide()
 	
-	for i in get_slide_collision_count():
-		var collision = get_slide_collision(i)
-		var collider = collision.get_collider()
-		if collider is RigidBody3D:
-			var push_direction = -collision.get_normal()
-			var mass_factor = clamp(1.0/collider.mass,0.05, 2.0)
-			collider.apply_central_impulse(push_direction * velocity.length() * push_force*mass_factor)
+	#for i in get_slide_collision_count():
+		#var collision = get_slide_collision(i)
+		#var collider = collision.get_collider()
+		#if collider is RigidBody3D:
+			#var push_direction = -collision.get_normal()
+			#var mass_factor = clamp(1.0/collider.mass,0.05, 2.0)
+			#collider.apply_central_impulse(push_direction * velocity.length() * push_force*mass_factor)
 
 #endregion
 	
