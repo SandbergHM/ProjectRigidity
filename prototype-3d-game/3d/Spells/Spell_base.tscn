@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c5cqlfc4oomoi"]
+
+[ext_resource type="Script" uid="uid://kaw3v3npjesl" path="res://3d/Spells/spell_base.gd" id="1_lc2qx"]
+
+[node name="SpellBase" type="Node" unique_id=1205820468]
+script = ExtResource("1_lc2qx")
+
+[node name="CooldownTimer" type="Timer" parent="." unique_id=503920347]
+one_shot = true

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dvphk5ahbbphd"]
+
+[ext_resource type="Script" uid="uid://bcpyo12xxomie" path="res://3d/Spells/telekenesis/telekenesis.gd" id="1_ysd3x"]
+
+[node name="Forcethrow" type="Node" unique_id=955725691]
+script = ExtResource("1_ysd3x")
+spell_name = "telekenesis"
+metadata/_custom_type_script = "uid://kaw3v3npjesl"

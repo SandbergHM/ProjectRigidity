@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://cgbyossau3ofd" path="res://InventoryAssets/Items/Item data/Iron.tres" id="4_1jxqw"]
 [ext_resource type="Resource" uid="uid://dbopw1jf8ldg5" path="res://InventoryAssets/Items/Item data/Goo.tres" id="5_dw050"]
 [ext_resource type="Resource" uid="uid://bcugogeqvmxds" path="res://InventoryAssets/Items/Item data/Wood.tres" id="6_1jxqw"]
+[ext_resource type="Script" uid="uid://i17t78p75ygv" path="res://GUI_manager.gd" id="9_b26j0"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r742f"]
 radius = 0.2788086
@@ -20,6 +21,7 @@ font_size = 19
 
 [node name="Player" type="CharacterBody3D" unique_id=2007265276]
 script = ExtResource("1_4flbx")
+player_health = 110.0
 throw_force = 50.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2020413765]
@@ -146,3 +148,15 @@ grow_vertical = 0
 label_settings = SubResource("LabelSettings_i3pqv")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="GUI" type="Node" parent="." unique_id=1053631560]
+script = ExtResource("9_b26j0")
+
+[node name="HealthText" type="Label" parent="GUI" unique_id=2046681851]
+offset_left = 50.0
+offset_top = 34.0
+offset_right = 138.0
+offset_bottom = 57.0
+text = "Health: 100"
+
+[node name="SpellSlot" type="Node" parent="." unique_id=1918956039]

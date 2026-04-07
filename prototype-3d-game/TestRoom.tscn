@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://br5kqtdkorum0" path="res://3d/Objects/Interacteable/Box/box.tscn" id="3_cbkwy"]
 [ext_resource type="PackedScene" uid="uid://cfq73wendo5qb" path="res://InventoryAssets/Items/WorldItems/world_item_goo.tscn" id="4_gcbeg"]
 [ext_resource type="Script" uid="uid://bplsxmd2v488e" path="res://3d/Entities/Enemies/enemy_base.gd" id="5_c3cbu"]
+[ext_resource type="PackedScene" uid="uid://div7nlsc4h2ba" path="res://3d/Spells/incinerate/fireball.tscn" id="6_fk7fr"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_rxg2q"]
 
@@ -109,6 +110,20 @@ contact_monitor = true
 max_contacts_reported = 1
 can_interact = null
 
+[node name="WorldItem_Goo2" parent="." unique_id=1087301490 instance=ExtResource("4_gcbeg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9648347, 1.6427703, 4.953231)
+mass = 0.1
+contact_monitor = true
+max_contacts_reported = 1
+can_interact = null
+
+[node name="WorldItem_Goo3" parent="." unique_id=2108250144 instance=ExtResource("4_gcbeg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9648347, 2.0521522, 4.7819467)
+mass = 0.1
+contact_monitor = true
+max_contacts_reported = 1
+can_interact = null
+
 [node name="Enemy" type="CharacterBody3D" parent="." unique_id=960548306]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5463006, -8.932043)
 script = ExtResource("5_c3cbu")
@@ -122,5 +137,9 @@ shape = SubResource("CapsuleShape3D_c3cbu")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy" unique_id=1677389978]
 
 [node name="DamageCooldown" type="Timer" parent="Enemy" unique_id=808132034]
+one_shot = true
+
+[node name="Fireball" parent="." unique_id=177964546 instance=ExtResource("6_fk7fr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.628891, 6.542204, -10.227816)
 
 [connection signal="timeout" from="Enemy/DamageCooldown" to="Enemy" method="_on_damage_cooldown_timeout"]

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cp6vcphh6aey"]
+
+[ext_resource type="Script" uid="uid://dx80qonbvavsu" path="res://3d/Spells/incinerate/incinerate.gd" id="1_lk71f"]
+
+[node name="Incinerate" type="Node" unique_id=1931491021]
+script = ExtResource("1_lk71f")
+metadata/_custom_type_script = "uid://kaw3v3npjesl"

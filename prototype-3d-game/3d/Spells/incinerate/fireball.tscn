@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://div7nlsc4h2ba"]
+
+[ext_resource type="Script" uid="uid://bvqdfrthfa13k" path="res://3d/Spells/incinerate/fireball.gd" id="1_ruard"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_onm3x"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ruard"]
+albedo_color = Color(0.8, 0.44705883, 0, 1)
+emission_enabled = true
+emission = Color(0.8, 0.44705883, 0, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_thr8o"]
+
+[node name="Fireball" type="RigidBody3D" unique_id=177964546]
+script = ExtResource("1_ruard")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1854999843]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+mesh = SubResource("SphereMesh_onm3x")
+surface_material_override/0 = SubResource("StandardMaterial3D_ruard")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=146528172]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+shape = SubResource("SphereShape3D_thr8o")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1882529294]
+light_color = Color(0.8, 0.44705883, 0, 1)
+light_energy = 4.449

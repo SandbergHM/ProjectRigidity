@@ -1,5 +1,6 @@
 extends CharacterBody3D
 class_name Player
+
 #region export variables
 ## Player health
 @export var player_health: float = 100.0
@@ -24,34 +25,44 @@ var target_velocity = Vector3.ZERO
 var movement_boost: float = 0
 var collider = null
 var lock_rotation: bool = false
-var is_holding: bool = false
-var held_object: RigidBody3D = null
-var hold_tween: Tween = null
+var current_spell: SpellBase = null
+
 #endregion
 
 #region onreadys
 
 @onready var camera = $Camera3D
 @onready var interact_line = $InteractLine
+@onready var spell_slot = $SpellSlot
 
 #endregion
 
-#region constants
-const HOLD_DISTANCE: float = 3.0
-const LIFT_DURATION: float = 0.2
+const SPELLS = {
+	"telekinesis": preload("res://3d/Spells/telekenesis/telekenesis.tscn"),
+}
+
+#endregion
+
+#region signals
+
+signal physics_frame
+
 #endregion
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	up_direction = Vector3.UP
 	signal_bus.lock_player_rotation.connect(_on_lock_player_rotation)
-
+	equip_spell(SPELLS["telekinesis"])
 
 # Locks player rotation from signal bus, used for example when player is in a menu or dialogue
 func _on_lock_player_rotation(lock):
 	lock_rotation = lock
 
 func _physics_process(delta: float) -> void:
+	#emit signal for spells or other nodes that need to run logic every physics frame, such as checking if held objects are still valid
+	emit_signal("physics_frame")
+
 #region player movement
 	var direction = Vector3.ZERO
 	var input_dir = Input.get_vector("player_move_right", "player_move_left", "player_move_back", "player_move_forward")
@@ -87,25 +98,14 @@ func _physics_process(delta: float) -> void:
 	velocity = target_velocity
 	move_and_slide()
 	
-	#for i in get_slide_collision_count():
-		#var collision = get_slide_collision(i)
-		#var collider = collision.get_collider()
-		#if collider is RigidBody3D:
-			#var push_direction = -collision.get_normal()
-			#var mass_factor = clamp(1.0/collider.mass,0.05, 2.0)
-			#collider.apply_central_impulse(push_direction * velocity.length() * push_force*mass_factor)
-
 #endregion
 	
-#region force lift
-	if Input.is_action_just_pressed("player_force_lift"):
-		_try_lift_object()
-
-	if is_holding and held_object:
-		_update_held_position()
-
-		if Input.is_action_just_pressed("player_force_throw"):
-			_throw_object()
+#region player spellcast
+	if Input.is_action_just_pressed("player_primary_cast"):
+		current_spell._try_primary_cast(interact_line.get_collider(), self)
+	
+	if Input.is_action_just_pressed("player_secondary_cast"):
+		current_spell._try_secondary_cast(interact_line.get_collider(), self)
 #endregion
 
 func _unhandled_input(event: InputEvent):
@@ -167,58 +167,11 @@ func _change_state(new_state):
 		globals.Player_state.SPRINT:
 			pass
 
-func _try_lift_object():
-	if not interact_line.is_colliding():
-		return
-	
-	var collider = interact_line.get_collider()
-	if collider is RigidBody3D and collider.is_in_group("interactable"):
-		held_object = collider
-		is_holding = true
 
-		# Disable physics on the object while held
-		held_object.freeze = true
-
-		# Tween the object to in front of the camera
-		var target_pos = _get_hold_position()
-
-		if hold_tween:
-			hold_tween.kill()
-
-		hold_tween = create_tween()
-		hold_tween.set_ease(Tween.EASE_OUT)
-		hold_tween.set_trans(Tween.TRANS_QUINT)
-		hold_tween.tween_property(held_object, "global_position", target_pos, LIFT_DURATION)
-
-func _update_held_position():
-	# Smoothly follow the camera hold point each frame after the initial lift
-	var target_pos = _get_hold_position()
-
-	if hold_tween and hold_tween.is_running():
-		return  # Let the lift tween finish first
-
-	held_object.global_position = lerp(
-		held_object.global_position,
-		target_pos,
-		0.2  # Adjust for tighter or looser tracking
-	)
-
-func _throw_object():
-	is_holding = false
-
-	# Re-enable physics
-	held_object.freeze = false
-
-	var cam_forward = -camera.global_transform.basis.z
-	var player_forward = -global_transform.basis.z
-	var throw_direction = (cam_forward * 0.75 + player_forward * 0.25).normalized()
-	held_object.apply_impulse(throw_direction * throw_force)
-
-	if hold_tween:
-		hold_tween.kill()
-		hold_tween = null
-
-	held_object = null
-
-func _get_hold_position() -> Vector3:
-	return camera.global_position + (-camera.global_transform.basis.z * HOLD_DISTANCE)
+func equip_spell(spell_scene: PackedScene) -> void:
+	if current_spell:
+		spell_slot.remove_child(current_spell)
+		current_spell.queue_free()
+	current_spell = spell_scene.instantiate()
+	spell_slot.add_child(current_spell)
+	print("Equipped spell type: ", current_spell.get_script())  # <-- add this
