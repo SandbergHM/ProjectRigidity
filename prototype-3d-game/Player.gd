@@ -39,6 +39,7 @@ var current_spell: SpellBase = null
 
 const SPELLS = {
 	"telekinesis": preload("res://3d/Spells/telekenesis/telekenesis.tscn"),
+	"incinerate": preload("res://3d/Spells/incinerate/incinerate.tscn")
 }
 
 #endregion
@@ -53,7 +54,7 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	up_direction = Vector3.UP
 	signal_bus.lock_player_rotation.connect(_on_lock_player_rotation)
-	equip_spell(SPELLS["telekinesis"])
+	equip_spell(SPELLS["incinerate"])
 
 # Locks player rotation from signal bus, used for example when player is in a menu or dialogue
 func _on_lock_player_rotation(lock):
@@ -174,4 +175,3 @@ func equip_spell(spell_scene: PackedScene) -> void:
 		current_spell.queue_free()
 	current_spell = spell_scene.instantiate()
 	spell_slot.add_child(current_spell)
-	print("Equipped spell type: ", current_spell.get_script())  # <-- add this

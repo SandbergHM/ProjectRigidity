@@ -46,6 +46,8 @@ shape = SubResource("BoxShape3D_glv2v")
 
 [node name="Wall4" type="StaticBody3D" parent="." unique_id=985306444]
 transform = Transform3D(200, 0, 0, 0, 25, 0, 0, 0, 1, 0, 11.153454, 99.87465)
+collision_layer = 15
+collision_mask = 15
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Wall4" unique_id=724286093]
 mesh = SubResource("BoxMesh_b22ol")
@@ -55,6 +57,8 @@ shape = SubResource("BoxShape3D_r742f")
 
 [node name="Wall" type="StaticBody3D" parent="." unique_id=1366940054]
 transform = Transform3D(200, 0, 0, 0, 25, 0, 0, 0, 1, 0, 11.153454, -100.95424)
+collision_layer = 15
+collision_mask = 15
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Wall" unique_id=400126908]
 mesh = SubResource("BoxMesh_b22ol")
@@ -64,6 +68,8 @@ shape = SubResource("BoxShape3D_r742f")
 
 [node name="Wall2" type="StaticBody3D" parent="." unique_id=29226709]
 transform = Transform3D(-8.742278e-06, 0, 1, 0, 25, 0, -200, 0, -4.371139e-08, -99.51073, 11.153454, -1.0715637)
+collision_layer = 15
+collision_mask = 15
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Wall2" unique_id=482247311]
 mesh = SubResource("BoxMesh_b22ol")
@@ -73,6 +79,8 @@ shape = SubResource("BoxShape3D_r742f")
 
 [node name="Wall3" type="StaticBody3D" parent="." unique_id=865704153]
 transform = Transform3D(-8.742278e-06, 0, 1, 0, 25, 0, -200, 0, -4.371139e-08, 98.6707, 11.153454, -1.0715637)
+collision_layer = 15
+collision_mask = 15
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Wall3" unique_id=1800239748]
 mesh = SubResource("BoxMesh_b22ol")
@@ -81,6 +89,7 @@ mesh = SubResource("BoxMesh_b22ol")
 shape = SubResource("BoxShape3D_r742f")
 
 [node name="Player" parent="." unique_id=2007265276 instance=ExtResource("2_cbkwy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.362836, 0, -25.649113)
 throw_force = 10.0
 
 [node name="Box" parent="." unique_id=81461789 instance=ExtResource("3_cbkwy")]
@@ -96,7 +105,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0203242, 0.8417978, 6.87845
 mass = 5.0
 
 [node name="Box4" parent="." unique_id=1035012523 instance=ExtResource("3_cbkwy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.283254, 0.8417978, 4.9315405)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.0190916, 0.8417978, -10.453949)
 mass = 5.0
 
 [node name="Box5" parent="." unique_id=1528923662 instance=ExtResource("3_cbkwy")]
@@ -118,7 +127,7 @@ max_contacts_reported = 1
 can_interact = null
 
 [node name="WorldItem_Goo3" parent="." unique_id=2108250144 instance=ExtResource("4_gcbeg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9648347, 2.0521522, 4.7819467)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2452683, 2.0521522, -11.093357)
 mass = 0.1
 contact_monitor = true
 max_contacts_reported = 1

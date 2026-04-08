@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Globals="*uid://b0wj0e7lusoox"
 signal_bus="*uid://bbtfw148joij"
+Shader_registry="*uid://d1itjkqy3lwqy"
 
 [display]
 

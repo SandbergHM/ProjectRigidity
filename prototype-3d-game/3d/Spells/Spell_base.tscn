@@ -6,4 +6,5 @@
 script = ExtResource("1_lc2qx")
 
 [node name="CooldownTimer" type="Timer" parent="." unique_id=503920347]
+unique_name_in_owner = true
 one_shot = true

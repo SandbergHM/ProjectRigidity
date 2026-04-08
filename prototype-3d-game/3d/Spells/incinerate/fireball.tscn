@@ -12,6 +12,9 @@ emission = Color(0.8, 0.44705883, 0, 1)
 [sub_resource type="SphereShape3D" id="SphereShape3D_thr8o"]
 
 [node name="Fireball" type="RigidBody3D" unique_id=177964546]
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_ruard")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1854999843]
@@ -26,3 +29,5 @@ shape = SubResource("SphereShape3D_thr8o")
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1882529294]
 light_color = Color(0.8, 0.44705883, 0, 1)
 light_energy = 4.449
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
