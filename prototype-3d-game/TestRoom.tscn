@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://br5kqtdkorum0" path="res://3d/Objects/Interacteable/Box/box.tscn" id="3_cbkwy"]
 [ext_resource type="PackedScene" uid="uid://cfq73wendo5qb" path="res://InventoryAssets/Items/WorldItems/world_item_goo.tscn" id="4_gcbeg"]
 [ext_resource type="Script" uid="uid://bplsxmd2v488e" path="res://3d/Entities/Enemies/enemy_base.gd" id="5_c3cbu"]
+[ext_resource type="Script" uid="uid://mih6nulamsb8" path="res://3d/Effects/status_effect_component.gd" id="6_adu6t"]
 [ext_resource type="PackedScene" uid="uid://div7nlsc4h2ba" path="res://3d/Spells/incinerate/fireball.tscn" id="6_fk7fr"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_rxg2q"]
@@ -133,7 +134,7 @@ contact_monitor = true
 max_contacts_reported = 1
 can_interact = null
 
-[node name="Enemy" type="CharacterBody3D" parent="." unique_id=960548306]
+[node name="Enemy" type="CharacterBody3D" parent="." unique_id=960548306 groups=["enemies"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5463006, -8.932043)
 script = ExtResource("5_c3cbu")
 
@@ -147,6 +148,10 @@ shape = SubResource("CapsuleShape3D_c3cbu")
 
 [node name="DamageCooldown" type="Timer" parent="Enemy" unique_id=808132034]
 one_shot = true
+
+[node name="StatusEffectComponent" type="Node" parent="Enemy" unique_id=2046581613]
+script = ExtResource("6_adu6t")
+metadata/_custom_type_script = "uid://mih6nulamsb8"
 
 [node name="Fireball" parent="." unique_id=177964546 instance=ExtResource("6_fk7fr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.628891, 6.542204, -10.227816)
