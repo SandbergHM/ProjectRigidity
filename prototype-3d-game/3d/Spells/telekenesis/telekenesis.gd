@@ -12,6 +12,7 @@ const HOLD_DISTANCE: float = 2
 const LIFT_DURATION: float = 0.2
 
 func _ready() -> void:
+	spell_name = "Telekinesis"
 	# Walk up the tree to find the Player node
 	_player = _find_player()
 	if _player:
@@ -97,3 +98,7 @@ func _throw_object(player):
 func _get_hold_position(player) -> Vector3:
 	return player.camera.global_position + (-player.camera.global_transform.basis.z * HOLD_DISTANCE)
 	
+# In telekenesis.gd
+func on_unequip() -> void:
+	if is_holding:
+		_throw_object(_player)

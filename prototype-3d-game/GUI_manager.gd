@@ -1,9 +1,11 @@
 extends Node
 
 @onready var health_text = $HealthText
+@onready var SpellText = $SpellText
 @onready var player = $".."
 
 func _ready() -> void:
+	print(player.current_spell)
 	health_text.text = "Health: " + str(player.player_health)
 
 func _process(delta: float) -> void:
@@ -11,3 +13,6 @@ func _process(delta: float) -> void:
 
 func _update_player_health():
 	health_text.text = "Health: " + str(player.player_health)
+	
+func _update_player_spell():
+	SpellText.text = "Spell: " + str(player.current_spell.spell_name)

@@ -24,6 +24,11 @@ func _try_primary_cast(collider, player: Player):
 func _try_secondary_cast(collider, player: Player):
 	return false
 
+# In spell_base.gd
+func on_unequip() -> void:
+	pass  # Override to clean up
+
+
 
 func _on_cooldown_timer_timeout() -> void:
 	pass # Replace with function body.

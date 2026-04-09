@@ -8,6 +8,18 @@
 [ext_resource type="Script" uid="uid://mih6nulamsb8" path="res://3d/Effects/status_effect_component.gd" id="6_adu6t"]
 [ext_resource type="PackedScene" uid="uid://div7nlsc4h2ba" path="res://3d/Spells/incinerate/fireball.tscn" id="6_fk7fr"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_b22ol"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r742f"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_gcbeg"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c3cbu"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_adu6t"]
+vertices = PackedVector3Array(-99.5, 0.45, -99.5, -99.5, 0.45, 99.5, 99.5, 0.45, 99.5, 99.5, 0.45, -99.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_rxg2q"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rxg2q"]
@@ -17,14 +29,6 @@ albedo_texture = ExtResource("1_cbkwy")
 [sub_resource type="BoxShape3D" id="BoxShape3D_glv2v"]
 size = Vector3(1.9920654, 0.001, 1.994751)
 
-[sub_resource type="BoxMesh" id="BoxMesh_b22ol"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_r742f"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_gcbeg"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c3cbu"]
-
 [node name="TestRoom" type="Node3D" unique_id=1932158316]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=608546344]
@@ -32,18 +36,6 @@ transform = Transform3D(0.99985224, 0.017190646, 9.1193075e-10, 0.01415263, -0.8
 shadow_enabled = true
 shadow_bias = 0.0
 shadow_blur = 0.909
-
-[node name="Ground" type="StaticBody3D" parent="." unique_id=1612382667]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
-collision_layer = 15
-collision_mask = 15
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=1592968139]
-mesh = SubResource("PlaneMesh_rxg2q")
-surface_material_override/0 = SubResource("StandardMaterial3D_rxg2q")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=1384392196]
-shape = SubResource("BoxShape3D_glv2v")
 
 [node name="Wall4" type="StaticBody3D" parent="." unique_id=985306444]
 transform = Transform3D(200, 0, 0, 0, 25, 0, 0, 0, 1, 0, 11.153454, 99.87465)
@@ -155,5 +147,21 @@ metadata/_custom_type_script = "uid://mih6nulamsb8"
 
 [node name="Fireball" parent="." unique_id=177964546 instance=ExtResource("6_fk7fr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.628891, 6.542204, -10.227816)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=110034205]
+navigation_mesh = SubResource("NavigationMesh_adu6t")
+navigation_layers = 15
+
+[node name="Ground" type="StaticBody3D" parent="NavigationRegion3D" unique_id=1612382667]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+collision_layer = 15
+collision_mask = 15
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Ground" unique_id=1592968139]
+mesh = SubResource("PlaneMesh_rxg2q")
+surface_material_override/0 = SubResource("StandardMaterial3D_rxg2q")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Ground" unique_id=1384392196]
+shape = SubResource("BoxShape3D_glv2v")
 
 [connection signal="timeout" from="Enemy/DamageCooldown" to="Enemy" method="_on_damage_cooldown_timeout"]

@@ -159,6 +159,15 @@ offset_left = 50.0
 offset_top = 34.0
 offset_right = 138.0
 offset_bottom = 57.0
+size_flags_horizontal = 0
 text = "Health: 100"
+
+[node name="SpellText" type="Label" parent="GUI" unique_id=1336627012]
+offset_left = 56.0
+offset_top = 1016.0
+offset_right = 186.0
+offset_bottom = 1039.0
+size_flags_horizontal = 0
+text = "No spell equiped"
 
 [node name="SpellSlot" type="Node" parent="." unique_id=1918956039]

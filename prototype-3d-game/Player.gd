@@ -27,6 +27,7 @@ var target_velocity := Vector3.ZERO
 var movement_boost: float = 0.0
 var lock_rotation: bool = false
 var current_spell: SpellBase = null
+var _current_spell_index: int = 0
 
 #endregion
 
@@ -35,13 +36,20 @@ var current_spell: SpellBase = null
 @onready var camera: Camera3D = $Camera3D
 @onready var interact_line = $InteractLine
 @onready var spell_slot = $SpellSlot
+@onready var GUI_manager = $GUI
 
 #endregion
+
+#region constants
 
 const SPELLS := {
 	"telekinesis": preload("res://3d/Spells/telekenesis/telekenesis.tscn"),
 	"incinerate":  preload("res://3d/Spells/incinerate/incinerate.tscn"),
 }
+
+const SPELL_ORDER := ["incinerate", "telekinesis"]
+
+#endregion
 
 #region Signals
 
@@ -55,6 +63,8 @@ func _ready() -> void:
 	up_direction = Vector3.UP
 	signal_bus.lock_player_rotation.connect(_on_lock_player_rotation)
 	equip_spell(SPELLS["incinerate"])
+	GUI_manager._update_player_spell()
+	
 
 
 func _on_lock_player_rotation(lock: bool) -> void:
@@ -73,6 +83,19 @@ func _unhandled_input(event: InputEvent) -> void:
 		rotation.y -= mouse_event.relative.x * rotation_speed
 		camera.rotation.x -= mouse_event.relative.y * rotation_speed
 		camera.rotation.x = clampf(camera.rotation.x, -PI / 2.0, PI / 2.0)
+	
+		# Scroll wheel cycling
+	if event is InputEventMouseButton:
+		if event.pressed and event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			_cycle_spell(-1)
+		elif event.pressed and event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			_cycle_spell(1)
+
+	# Number key direct selection
+	if event is InputEventKey and event.pressed and not event.echo:
+		match event.physical_keycode:
+			KEY_1: _select_spell(0)
+			KEY_2: _select_spell(1)
 
 
 #region Movement
@@ -159,11 +182,28 @@ func _change_state(new_state: globals.Player_state) -> void:
 
 #region Spell Equipping
 
+# In Player.gd equip_spell()
 func equip_spell(spell_scene: PackedScene) -> void:
 	if current_spell:
+		current_spell.on_unequip()   # <-- add this line
 		spell_slot.remove_child(current_spell)
 		current_spell.queue_free()
 	current_spell = spell_scene.instantiate()
 	spell_slot.add_child(current_spell)
+
+func _cycle_spell(direction: int) -> void:
+	_select_spell((_current_spell_index + direction) % SPELL_ORDER.size())
+
+
+func _select_spell(index: int) -> void:
+	if index == _current_spell_index and current_spell != null:
+		return
+	_current_spell_index = index
+	var key = SPELL_ORDER[index]
+	equip_spell(SPELLS[key])
+	print("Equipped: ", key)
+	GUI_manager._update_player_spell()
+
+
 
 #endregion
