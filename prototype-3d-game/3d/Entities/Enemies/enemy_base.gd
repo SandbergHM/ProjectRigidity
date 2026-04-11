@@ -31,13 +31,11 @@ var _path_refresh_timer: float = 0.0
 
 
 func _ready() -> void:
-	# Find the player automatically, or set target manually via set_target()
 	_target = get_tree().get_first_node_in_group("player")
 	
 	nav_agent.max_speed = movement_speed
 	nav_agent.path_desired_distance = stopping_distance
 	nav_agent.target_desired_distance = stopping_distance
-
 
 func _physics_process(delta: float) -> void:
 	_check_collision_damage()
@@ -84,7 +82,7 @@ func _handle_navigation(delta: float) -> void:
 	move_and_slide()
 
 
-## Assign a navigation target from outside, e.g. for fleeing or custom AI logic
+
 func set_target(new_target: Node3D) -> void:
 	_target = new_target
 
@@ -118,7 +116,6 @@ func take_damage(amount: float) -> void:
 		return
 	health -= amount
 	is_damage_cooldown_active = true
-	print(health)
 
 
 func set_on_fire() -> void:

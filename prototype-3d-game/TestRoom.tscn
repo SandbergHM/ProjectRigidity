@@ -81,7 +81,7 @@ mesh = SubResource("BoxMesh_b22ol")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Wall3" unique_id=1958517604]
 shape = SubResource("BoxShape3D_r742f")
 
-[node name="Player" parent="." unique_id=2007265276 instance=ExtResource("2_cbkwy")]
+[node name="Player" parent="." unique_id=2007265276 groups=["player"] instance=ExtResource("2_cbkwy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.362836, 0, -25.649113)
 throw_force = 10.0
 
