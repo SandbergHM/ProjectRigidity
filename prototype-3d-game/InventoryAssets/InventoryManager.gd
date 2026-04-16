@@ -28,8 +28,7 @@ func _process (delta):
 	
 func toggle_window (open:bool):
 	window.visible = open
-	
-	#Configure mouse and player rotation during inventory management
+
 	if open:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		signal_bus.lock_player_rotation.emit(true)

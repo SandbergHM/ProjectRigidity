@@ -5,6 +5,7 @@ extends RigidBody3D
 
 var burning_material := preload("res://3d/materials/shaders/burning.gdshader")
 var _blast_query: PhysicsShapeQueryParameters3D
+var blast_damage: float = 30.0
 
 @onready var material = $MeshInstance3D
 
@@ -28,17 +29,20 @@ func _on_body_entered(body):
 	var results = get_world_3d().direct_space_state.intersect_shape(_blast_query)
 	for result in results:
 		var obj = result.collider
-		if not obj is RigidBody3D or obj is Player:
+		if obj is Player:
 			continue
 
 		var offset = obj.global_position - global_position
 		var dist = offset.length()
-		if dist == 0.0:
-			continue
-
+		var direction = offset.normalized() if dist > 0.01 else Vector3.UP
 		var falloff = 1.0 - clamp(dist / blast_range, 0.0, 1.0)
-		var direction = offset / dist
 
-		obj.apply_impulse(direction * blast_force * falloff)
-	
+		# Impulse only applies to RigidBodies
+		if obj is RigidBody3D:
+			obj.apply_impulse(direction * blast_force * falloff)
+
+		# Damage applies to anything with take_damage (enemies, player, etc.)
+		if obj.is_in_group("enemies") and obj.has_method("take_damage"):
+			obj.take_damage(blast_damage * falloff)
+		
 	queue_free()

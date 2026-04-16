@@ -22,12 +22,12 @@ func _try_primary_cast(collider, player: Player):
 		var camera = player.get_node("Camera3D")
 		var fireball = fireball_scene.instantiate()
 		
-		# Add to scene FIRST before touching global_transform
 		get_tree().current_scene.add_child(fireball)
 		
 		fireball.global_transform.basis = camera.global_transform.basis
 		fireball.global_transform.origin = camera.global_transform.origin + camera.global_transform.basis.z * -1.5
 		fireball.linear_velocity = -camera.global_transform.basis.z * ball_speed
+		fireball.blast_damage = spell_damage  # pass damage through
 		
 		start_cooldown()
 

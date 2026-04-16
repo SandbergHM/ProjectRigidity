@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://cfq73wendo5qb" path="res://InventoryAssets/Items/WorldItems/world_item_goo.tscn" id="4_gcbeg"]
 [ext_resource type="Script" uid="uid://bplsxmd2v488e" path="res://3d/Entities/Enemies/enemy_base.gd" id="5_c3cbu"]
 [ext_resource type="Script" uid="uid://mih6nulamsb8" path="res://3d/Effects/status_effect_component.gd" id="6_adu6t"]
-[ext_resource type="PackedScene" uid="uid://div7nlsc4h2ba" path="res://3d/Spells/incinerate/fireball.tscn" id="6_fk7fr"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_b22ol"]
 
@@ -59,6 +58,17 @@ mesh = SubResource("BoxMesh_b22ol")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Wall" unique_id=1749899978]
 shape = SubResource("BoxShape3D_r742f")
 
+[node name="Wall5" type="StaticBody3D" parent="." unique_id=953616484]
+transform = Transform3D(200, 0, 0, 0, -0.30498752, -0.99992555, 0, 24.998138, -0.012199501, 0, 50.995327, -1.6997375)
+collision_layer = 15
+collision_mask = 15
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall5" unique_id=95149120]
+mesh = SubResource("BoxMesh_b22ol")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall5" unique_id=1829708788]
+shape = SubResource("BoxShape3D_r742f")
+
 [node name="Wall2" type="StaticBody3D" parent="." unique_id=29226709]
 transform = Transform3D(-8.742278e-06, 0, 1, 0, 25, 0, -200, 0, -4.371139e-08, -99.51073, 11.153454, -1.0715637)
 collision_layer = 15
@@ -82,7 +92,7 @@ mesh = SubResource("BoxMesh_b22ol")
 shape = SubResource("BoxShape3D_r742f")
 
 [node name="Player" parent="." unique_id=2007265276 groups=["player"] instance=ExtResource("2_cbkwy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.362836, 0, -25.649113)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.362836, 2.6741428, -4.8342323)
 throw_force = 10.0
 
 [node name="Box" parent="." unique_id=81461789 instance=ExtResource("3_cbkwy")]
@@ -126,7 +136,7 @@ contact_monitor = true
 max_contacts_reported = 1
 can_interact = null
 
-[node name="Enemy" type="CharacterBody3D" parent="." unique_id=960548306 groups=["enemies"]]
+[node name="Enemy" type="CharacterBody3D" parent="." unique_id=960548306 groups=["enemies", "interactable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5463006, -8.932043)
 script = ExtResource("5_c3cbu")
 
@@ -145,9 +155,6 @@ one_shot = true
 script = ExtResource("6_adu6t")
 metadata/_custom_type_script = "uid://mih6nulamsb8"
 
-[node name="Fireball" parent="." unique_id=177964546 instance=ExtResource("6_fk7fr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.628891, 6.542204, -10.227816)
-
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=110034205]
 navigation_mesh = SubResource("NavigationMesh_adu6t")
 navigation_layers = 15
@@ -163,5 +170,21 @@ surface_material_override/0 = SubResource("StandardMaterial3D_rxg2q")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Ground" unique_id=1384392196]
 shape = SubResource("BoxShape3D_glv2v")
+
+[node name="Box6" parent="." unique_id=995704284 instance=ExtResource("3_cbkwy")]
+transform = Transform3D(2.9489138, 0, 0, 0, 4.3288755, 0, 0, 0, 12.447103, 10.76953, 2.2682543, -7.6251154)
+mass = 5.0
+
+[node name="Box7" parent="." unique_id=1173345972 instance=ExtResource("3_cbkwy")]
+transform = Transform3D(2.9489138, 0, 0, 0, 4.3288755, 0, 0, 0, 12.447103, -14.694809, 2.2682543, -26.148727)
+mass = 5.0
+
+[node name="Box9" parent="." unique_id=1849240128 instance=ExtResource("3_cbkwy")]
+transform = Transform3D(1.7664692, 0, 9.966785, -0.8375465, 4.047414, 2.6446745, -2.2077582, -1.5354478, 6.9713163, -25.32522, 0.6789198, -5.660595)
+mass = 5.0
+
+[node name="Box8" parent="." unique_id=1522401674 instance=ExtResource("3_cbkwy")]
+transform = Transform3D(1.168887, 0, 11.427523, 0, 4.328875, 0, -2.7073596, 0, 4.9337683, -7.5204067, 2.2682543, 20.810394)
+mass = 5.0
 
 [connection signal="timeout" from="Enemy/DamageCooldown" to="Enemy" method="_on_damage_cooldown_timeout"]

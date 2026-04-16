@@ -7,4 +7,6 @@ signal player_highlight()
 signal lock_player_rotation(lock:bool)
 ##Grant player an item from anywhere
 signal on_give_player_item (item:Item, amount:int)
+##Player has dealt damage
+signal damage_dealt(amount: float, position: Vector3)
 #endregion

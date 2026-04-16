@@ -18,7 +18,6 @@ func on_tick(entity: Node) -> void:
 func on_remove(entity: Node) -> void:
 	pass
 
-# Called when the same effect is applied while already active.
-# Default: reset duration. Override for stacking behaviour.
+
 func on_refresh(entity: Node) -> void:
-	duration = get_script().new().duration  # reset to default
+	duration = get_script().new().duration

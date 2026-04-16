@@ -10,6 +10,7 @@ class_name SpellBase
 @export var spell_cooldown: float = 1.0
 @export var spell_range: float = 5.0
 @export var spell_unlocked: bool = false
+@export var spell_damage: float = 30.0
 
 var cooldown_timer: Timer
 
@@ -24,7 +25,7 @@ func _try_primary_cast(collider, player: Player):
 func _try_secondary_cast(collider, player: Player):
 	return false
 
-# In spell_base.gd
+
 func on_unequip() -> void:
 	pass  # Override to clean up
 

@@ -11,7 +11,7 @@ emission = Color(0.8, 0.44705883, 0, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_thr8o"]
 
-[node name="Fireball" type="RigidBody3D" unique_id=177964546]
+[node name="Fireball" type="RigidBody3D" unique_id=177964546 groups=["projectiles_no_collission"]]
 gravity_scale = 0.0
 contact_monitor = true
 max_contacts_reported = 1

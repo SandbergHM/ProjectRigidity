@@ -15,4 +15,7 @@ func _update_player_health():
 	health_text.text = "Health: " + str(player.player_health)
 	
 func _update_player_spell():
-	SpellText.text = "Spell: " + str(player.current_spell.spell_name)
+	if player.current_spell == null:
+		SpellText.text = "Spell: None"
+	else:
+		SpellText.text = "Spell: " + player.current_spell.spell_name

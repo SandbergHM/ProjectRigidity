@@ -28,13 +28,14 @@ window/size/viewport_height=1080
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/github_copilot/plugin.cfg")
+enabled=PackedStringArray("res://addons/github_copilot/plugin.cfg", "res://addons/godot_mcp/plugin.cfg")
 
 [global_group]
 
 interactable=""
 world_item=""
 enemies=""
+projectiles_no_collission=""
 
 [input]
 

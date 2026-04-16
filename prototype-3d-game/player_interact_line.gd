@@ -10,7 +10,7 @@ func _ready() -> void:
 	enabled = true
 
 
-func _process(_delta: float) -> void:
+func _process(_delta: float):
 	pass
 
 
@@ -71,7 +71,7 @@ func _get_mesh(body: PhysicsBody3D) -> MeshInstance3D:
 ## Returns a highlight color based on the object's group membership.
 ## Consider centralizing this in a globals/highlight manager if reused elsewhere.
 func _get_highlight_color(body: PhysicsBody3D) -> Color:
-	if body.is_in_group("enemy"):
+	if body.is_in_group("enemies"):
 		return globals.COLOR_RED
 	if body.is_in_group("friendly") or body.is_in_group("world_item"):
 		return globals.COLOR_GREEN
