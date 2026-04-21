@@ -8,6 +8,12 @@
 
 config_version=5
 
+[ambientcg]
+
+extract_path="res://AmbientCG/Extracted"
+material_file_directory="res://AmbientCG/Materials"
+environment_file_directory="res://AmbientCG/Environments"
+
 [application]
 
 config/name="Prototype3DGame"
@@ -20,6 +26,9 @@ config/icon="res://icon.svg"
 Globals="*uid://b0wj0e7lusoox"
 signal_bus="*uid://bbtfw148joij"
 Shader_registry="*uid://d1itjkqy3lwqy"
+MCPScreenshot="*res://addons/godot_mcp/mcp_screenshot_service.gd"
+MCPInputService="*res://addons/godot_mcp/mcp_input_service.gd"
+MCPGameInspector="*res://addons/godot_mcp/mcp_game_inspector_service.gd"
 
 [display]
 

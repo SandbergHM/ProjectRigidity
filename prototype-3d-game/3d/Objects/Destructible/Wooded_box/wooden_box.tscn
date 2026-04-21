@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://e8stqej1psef"]
+
+[ext_resource type="Script" uid="uid://dd08pwr4ariuk" path="res://3d/Objects/interactable_world_object_base.gd" id="1_nlpp1"]
+[ext_resource type="Texture2D" uid="uid://dmnjxhi38gowh" path="res://3d/materials/Planks023B_1K-JPG/Planks023B_1K-JPG_Color.jpg" id="2_uy22f"]
+[ext_resource type="Texture2D" uid="uid://bnyl33ych7575" path="res://3d/materials/Planks023B_1K-JPG/Planks023B_1K-JPG_AmbientOcclusion.jpg" id="3_vn1jw"]
+[ext_resource type="Texture2D" uid="uid://crc2a48u0q4p1" path="res://3d/materials/Planks023B_1K-JPG/Planks023B_1K-JPG_Metalness.jpg" id="4_h7nbe"]
+[ext_resource type="Texture2D" uid="uid://bcbkd3oie4flp" path="res://3d/materials/Planks023B_1K-JPG/Planks023B_1K-JPG_NormalGL.jpg" id="5_cd4km"]
+[ext_resource type="Texture2D" uid="uid://bmm2wmqmtn2k1" path="res://3d/materials/Planks023B_1K-JPG/Planks023B_1K-JPG_Roughness.jpg" id="6_0xfk1"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5xup8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fxnk3"]
+albedo_texture = ExtResource("2_uy22f")
+metallic = 1.0
+metallic_texture = ExtResource("4_h7nbe")
+roughness_texture = ExtResource("6_0xfk1")
+normal_enabled = true
+normal_texture = ExtResource("5_cd4km")
+ao_enabled = true
+ao_texture = ExtResource("3_vn1jw")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_thc2o"]
+
+[node name="WoodenBox" type="RigidBody3D" unique_id=375621763]
+collision_layer = 15
+collision_mask = 15
+script = ExtResource("1_nlpp1")
+metadata/_custom_type_script = "uid://dd08pwr4ariuk"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1418867375]
+mesh = SubResource("BoxMesh_5xup8")
+surface_material_override/0 = SubResource("StandardMaterial3D_fxnk3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=243526871]
+shape = SubResource("BoxShape3D_thc2o")

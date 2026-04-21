@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cfq73wendo5qb" path="res://InventoryAssets/Items/WorldItems/world_item_goo.tscn" id="4_gcbeg"]
 [ext_resource type="Script" uid="uid://bplsxmd2v488e" path="res://3d/Entities/Enemies/enemy_base.gd" id="5_c3cbu"]
 [ext_resource type="Script" uid="uid://mih6nulamsb8" path="res://3d/Effects/status_effect_component.gd" id="6_adu6t"]
+[ext_resource type="PackedScene" uid="uid://e8stqej1psef" path="res://3d/Objects/Destructible/Wooded_box/wooden_box.tscn" id="7_adu6t"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_b22ol"]
 
@@ -186,5 +187,8 @@ mass = 5.0
 [node name="Box8" parent="." unique_id=1522401674 instance=ExtResource("3_cbkwy")]
 transform = Transform3D(1.168887, 0, 11.427523, 0, 4.328875, 0, -2.7073596, 0, 4.9337683, -7.5204067, 2.2682543, 20.810394)
 mass = 5.0
+
+[node name="WoodenBox" parent="." unique_id=375621763 groups=["interactable"] instance=ExtResource("7_adu6t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6139126, 2.7723513, -11.949295)
 
 [connection signal="timeout" from="Enemy/DamageCooldown" to="Enemy" method="_on_damage_cooldown_timeout"]

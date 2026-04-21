@@ -41,8 +41,8 @@ func _on_body_entered(body):
 		if obj is RigidBody3D:
 			obj.apply_impulse(direction * blast_force * falloff)
 
-		# Damage applies to anything with take_damage (enemies, player, etc.)
-		if obj.is_in_group("enemies") and obj.has_method("take_damage"):
+		# Damage applies to anything with take_damage
+		if obj.has_method("take_damage"):
 			obj.take_damage(blast_damage * falloff)
 		
 	queue_free()
