@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
 		if entry["remaining"] <= 0.0:
 			_remove_effect(key)
 
-func apply(effect: StatusEffect) -> void:
+func apply(effect: StatusEffect, instigator: Node = null) -> void:
 	var key = effect.effect_name
 	if _active.has(key):
 		_active[key]["effect"].on_refresh(get_parent())
@@ -28,6 +28,9 @@ func apply(effect: StatusEffect) -> void:
 
 	# Re-instantiate from the same script instead of duplicate()
 	var instance: StatusEffect = effect.get_script().new()
+	# Forward instigator if the effect supports it
+	if instigator != null and "instigator" in instance:
+		instance.instigator = instigator
 	instance.on_apply(get_parent())
 	_active[key] = {
 		"effect": instance,

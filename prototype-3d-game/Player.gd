@@ -31,6 +31,9 @@ var lock_rotation: bool = false
 var current_spell: SpellBase = null
 var _current_spell_index: int = 0
 
+## Cache of spell unlock states, populated at _ready and updated when unlocks change.
+var _spell_unlock_cache: Dictionary = {}
+
 # =============================================================================
 # NODE REFERENCES
 # =============================================================================
@@ -56,6 +59,10 @@ const SPELL_ORDER := ["incinerate", "telekinesis"]
 # =============================================================================
 
 signal physics_frame
+## Emitted whenever the equipped spell changes. GUI and other systems connect to this.
+signal spell_changed(spell: SpellBase)
+## Emitted when the player takes damage. amount = damage dealt, source = the attacker.
+signal took_damage(amount: float, source: Node)
 
 # =============================================================================
 # LIFECYCLE
@@ -65,6 +72,7 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	up_direction = Vector3.UP
 	signal_bus.lock_player_rotation.connect(_on_lock_player_rotation)
+	_build_unlock_cache()
 	_equip_first_unlocked_spell()
 	GUI_manager._update_player_spell()
 
@@ -76,6 +84,22 @@ func _equip_first_unlocked_spell() -> void:
 			equip_spell(SPELLS[SPELL_ORDER[i]])
 			return
 	push_warning("Player: No unlocked spells found on ready.")
+
+
+## Rebuilds the unlock cache by instantiating each spell scene once.
+## Call this whenever spell unlock state changes at runtime.
+func _build_unlock_cache() -> void:
+	for i in SPELL_ORDER.size():
+		var key: String = SPELL_ORDER[i]
+		var instance := (SPELLS[key] as PackedScene).instantiate() as SpellBase
+		_spell_unlock_cache[key] = instance.spell_unlocked
+		instance.free()
+
+
+## Marks a spell as unlocked in the cache without needing a full rebuild.
+func unlock_spell(spell_name: String) -> void:
+	if spell_name in _spell_unlock_cache:
+		_spell_unlock_cache[spell_name] = true
 
 
 func _physics_process(delta: float) -> void:
@@ -219,15 +243,12 @@ func equip_spell(spell_scene: PackedScene) -> void:
 		current_spell.queue_free()
 	current_spell = spell_scene.instantiate()
 	spell_slot.add_child(current_spell)
+	spell_changed.emit(current_spell)
 
 
 func _is_spell_unlocked(index: int) -> bool:
 	var key: String = SPELL_ORDER[index]
-	var scene: PackedScene = SPELLS[key]
-	var instance := scene.instantiate() as SpellBase
-	var unlocked := instance.spell_unlocked
-	instance.free()
-	return unlocked
+	return _spell_unlock_cache.get(key, false)
 
 
 func _cycle_spell(direction: int) -> void:
@@ -253,8 +274,19 @@ func _select_spell(index: int) -> void:
 	_current_spell_index = index
 	var key: String = SPELL_ORDER[index]
 	equip_spell(SPELLS[key])
-	print("Equipped: ", key)
 	GUI_manager._update_player_spell()
+
+# =============================================================================
+# DAMAGE
+# =============================================================================
+
+func take_damage(amount: float, source: Node = null) -> void:
+	if player_state == globals.Player_state.DEAD:
+		return
+	player_health -= amount
+	if player_health <= 0.0:
+		player_health = 0.0
+	took_damage.emit(amount, source)
 
 # =============================================================================
 # SIGNAL CALLBACKS

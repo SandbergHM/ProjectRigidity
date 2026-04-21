@@ -12,7 +12,7 @@ signal destroyed
 
 var _is_damage_cooldown_active: bool = false
 
-@onready var _damage_cooldown_timer: Timer = $DamageCooldownTimer
+var _damage_cooldown_timer: Timer
 
 func _ready() -> void:
 	collision_layer = 15
@@ -22,6 +22,7 @@ func _ready() -> void:
 	timer.one_shot = true
 	timer.timeout.connect(_on_damage_cooldown_timeout)
 	add_child(timer)
+	_damage_cooldown_timer = timer
 
 func take_damage(amount: float) -> void:
 	if not destructible or _is_damage_cooldown_active:

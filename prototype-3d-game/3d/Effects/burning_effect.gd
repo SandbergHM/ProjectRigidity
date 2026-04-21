@@ -3,6 +3,9 @@ extends StatusEffect
 
 @export var damage_per_tick: float = 5.0
 
+## The node that applied this effect, used for kill attribution.
+var instigator: Node = null
+
 func _init() -> void:
 	effect_name = "Burning"
 	duration = 5.0
@@ -15,7 +18,7 @@ func on_apply(entity: Node) -> void:
 
 func on_tick(entity: Node) -> void:
 	if entity.has_method("take_damage"):
-		entity.take_damage(damage_per_tick)
+		entity.take_damage(damage_per_tick, instigator)
 
 func on_remove(entity: Node) -> void:
 	var mesh := _get_mesh(entity)

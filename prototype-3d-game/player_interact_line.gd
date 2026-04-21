@@ -17,6 +17,9 @@ func _process(_delta: float):
 func _physics_process(_delta: float) -> void:
 	global_transform.basis = $"../Camera3D".global_transform.basis
 	_current_collider = get_collider()
+	if signal_bus.is_player_holding:
+		_clear_highlight()
+		return
 	_update_highlight(_current_collider)
 
 
@@ -37,25 +40,33 @@ func _update_highlight(collider: Object) -> void:
 
 func _clear_highlight() -> void:
 	if is_instance_valid(_current_highlight_target):
-		_current_highlight_target.get_surface_override_material(0).next_pass = null
+		# Walk to the end of the next_pass chain and remove the outline pass
+		var mat := _current_highlight_target.get_active_material(0)
+		while mat != null:
+			if mat.next_pass != null and mat.next_pass.get("shader") != null \
+					and (mat.next_pass as ShaderMaterial).shader == HIGHLIGHT_SHADER:
+				mat.next_pass = null
+				break
+			mat = mat.next_pass
 	_current_highlight_target = null
 
 
 func _apply_highlight(mesh: MeshInstance3D, collider: PhysicsBody3D) -> void:
-	var base_material: StandardMaterial3D
-	var active_material := mesh.get_active_material(0)
-
-	if active_material == null:
-		base_material = StandardMaterial3D.new()
-	else:
-		base_material = active_material.duplicate()
-
 	var shader_material := ShaderMaterial.new()
 	shader_material.shader = HIGHLIGHT_SHADER
 	shader_material.set_shader_parameter("outline_color", _get_highlight_color(collider))
 
-	base_material.next_pass = shader_material
-	mesh.set_surface_override_material(0, base_material)
+	# Append to the end of the next_pass chain so we don't stomp the hit flash pass
+	var mat := mesh.get_active_material(0)
+	if mat == null:
+		var base := StandardMaterial3D.new()
+		base.next_pass = shader_material
+		mesh.set_surface_override_material(0, base)
+	else:
+		while mat.next_pass != null:
+			mat = mat.next_pass
+		mat.next_pass = shader_material
+
 	_current_highlight_target = mesh
 
 

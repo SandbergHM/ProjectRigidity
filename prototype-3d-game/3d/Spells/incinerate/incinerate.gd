@@ -36,7 +36,7 @@ func _try_secondary_cast(collider, player: Player):
 	if not cooldown_active:
 		if collider != null:
 			if collider.is_in_group("enemies"):
-				collider.set_on_fire()
+				collider.set_on_fire(player)
 				start_cooldown()
 
 

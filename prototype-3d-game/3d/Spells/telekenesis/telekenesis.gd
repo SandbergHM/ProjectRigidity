@@ -28,6 +28,9 @@ var held_object: RigidBody3D = null
 var hold_tween: Tween = null
 var _player: Player = null
 
+const HOLD_ALPHA: float = 0.35
+const FADE_DURATION: float = 0.2
+
 # =============================================================================
 # LIFECYCLE
 # =============================================================================
@@ -52,12 +55,12 @@ func _find_player() -> Player:
 # =============================================================================
 
 func _try_primary_cast(collider: Node3D, player: Player) -> bool:
-	if collider == null:
-		return false
-
 	if is_holding:
 		_throw_held_object(player)
 		return true
+
+	if collider == null:
+		return false
 
 	# Quick-flick throw without picking up first
 	if collider is RigidBody3D and collider.is_in_group("interactable"):
@@ -83,6 +86,8 @@ func _pick_up(object: RigidBody3D, player: Player) -> void:
 	is_holding = true
 	_player = player
 	held_object.freeze = true
+	_set_held_alpha(object, HOLD_ALPHA)
+	signal_bus.is_player_holding = true
 
 	if hold_tween:
 		hold_tween.kill()
@@ -97,6 +102,8 @@ func _throw_held_object(player: Player) -> void:
 	is_holding = false
 	held_object.freeze = false
 	held_object.linear_velocity = _get_throw_direction(player) * throw_force
+	_set_held_alpha(held_object, 1.0)
+	signal_bus.is_player_holding = false
 
 	if hold_tween:
 		hold_tween.kill()
@@ -116,6 +123,39 @@ func _get_throw_direction(player: Player) -> Vector3:
 
 func _get_hold_position(player: Player) -> Vector3:
 	return player.camera.global_position + (-player.camera.global_transform.basis.z * HOLD_DISTANCE)
+
+
+func _get_held_mesh(object: RigidBody3D) -> MeshInstance3D:
+	for child in object.get_children():
+		if child is MeshInstance3D:
+			return child
+	return null
+
+
+func _set_held_alpha(object: RigidBody3D, target_alpha: float) -> void:
+	var mesh := _get_held_mesh(object)
+	if mesh == null:
+		return
+	var mat := mesh.get_active_material(0)
+	if mat == null or not mat is StandardMaterial3D:
+		return
+	# Duplicate so we don't affect other instances sharing this material
+	var std_mat := (mat as StandardMaterial3D).duplicate() as StandardMaterial3D
+	mesh.set_surface_override_material(0, std_mat)
+	if target_alpha < 1.0:
+		std_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	var tween := create_tween()
+	tween.tween_method(
+		func(a: float) -> void:
+			var c := std_mat.albedo_color
+			c.a = a
+			std_mat.albedo_color = c,
+		std_mat.albedo_color.a, target_alpha, FADE_DURATION
+	)
+	if target_alpha >= 1.0:
+		tween.tween_callback(func() -> void:
+			std_mat.transparency = BaseMaterial3D.TRANSPARENCY_DISABLED
+		)
 
 # =============================================================================
 # FRAME UPDATE & CLEANUP

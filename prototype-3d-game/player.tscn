@@ -9,6 +9,8 @@
 [ext_resource type="Resource" uid="uid://dbopw1jf8ldg5" path="res://InventoryAssets/Items/Item data/Goo.tres" id="5_dw050"]
 [ext_resource type="Resource" uid="uid://bcugogeqvmxds" path="res://InventoryAssets/Items/Item data/Wood.tres" id="6_1jxqw"]
 [ext_resource type="Script" uid="uid://i17t78p75ygv" path="res://GUI_manager.gd" id="9_b26j0"]
+[ext_resource type="Shader" uid="uid://cksvqk2hbcmip" path="res://3d/materials/shaders/damage_vignette.gdshader" id="10_nvl01"]
+[ext_resource type="Script" uid="uid://opgohx7twctv" path="res://damage_vignette.gd" id="11_ivps1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r742f"]
 radius = 0.2788086
@@ -19,11 +21,23 @@ height = 1.4600677
 [sub_resource type="LabelSettings" id="LabelSettings_i3pqv"]
 font_size = 19
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_urp6f"]
+shader = ExtResource("10_nvl01")
+shader_parameter/intensity = 0.0
+shader_parameter/vignette_color = Color(1, 0, 0, 1)
+shader_parameter/reach = 0.45
+shader_parameter/sharpness = 4.0
+
 [node name="Player" type="CharacterBody3D" unique_id=2007265276]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_4flbx")
 player_health = 110.0
+movement_speed = null
+jump_height = null
+rotation_speed = null
+sprint_speed = null
+push_force = null
 throw_force = 50.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2020413765]
@@ -171,3 +185,14 @@ size_flags_horizontal = 0
 text = "No spell equiped"
 
 [node name="SpellSlot" type="Node" parent="." unique_id=1918956039]
+
+[node name="VignetteLayer" type="CanvasLayer" parent="." unique_id=1571938504]
+layer = 10
+
+[node name="DamageVignette" type="ColorRect" parent="VignetteLayer" unique_id=346808101]
+material = SubResource("ShaderMaterial_urp6f")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource("11_ivps1")

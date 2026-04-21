@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://dlydu8h62xit6"]
+
+[ext_resource type="Script" uid="uid://bplsxmd2v488e" path="res://3d/Entities/Enemies/enemy_base.gd" id="1_vc8up"]
+[ext_resource type="Script" uid="uid://mih6nulamsb8" path="res://3d/Effects/status_effect_component.gd" id="2_bx1b0"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_gcbeg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xetpm"]
+albedo_color = Color(0.7738555, 2.23808e-06, 9.62615e-07, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c3cbu"]
+
+[node name="Enemy" type="CharacterBody3D" unique_id=1387778896 groups=["enemies", "interactable"]]
+script = ExtResource("1_vc8up")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1630387724]
+mesh = SubResource("CapsuleMesh_gcbeg")
+surface_material_override/0 = SubResource("StandardMaterial3D_xetpm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=982906239]
+shape = SubResource("CapsuleShape3D_c3cbu")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=127307445]
+
+[node name="HealthBar3D" type="Label3D" parent="." unique_id=952234589]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
+visible = false
+billboard = 1
+font_size = 24
+outline_size = 6
+
+[node name="DamageCooldown" type="Timer" parent="." unique_id=1944121669]
+one_shot = true
+
+[node name="StatusEffectComponent" type="Node" parent="." unique_id=1367846082]
+script = ExtResource("2_bx1b0")
+metadata/_custom_type_script = "uid://mih6nulamsb8"
+
+[connection signal="timeout" from="DamageCooldown" to="." method="_on_damage_cooldown_timeout"]

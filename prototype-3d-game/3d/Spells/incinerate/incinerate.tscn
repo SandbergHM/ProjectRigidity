@@ -4,4 +4,5 @@
 
 [node name="Incinerate" type="Node" unique_id=1931491021]
 script = ExtResource("1_lk71f")
+spell_unlocked = true
 metadata/_custom_type_script = "uid://kaw3v3npjesl"
