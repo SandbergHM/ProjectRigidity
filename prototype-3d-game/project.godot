@@ -23,9 +23,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Globals="*uid://b0wj0e7lusoox"
-signal_bus="*uid://bbtfw148joij"
-Shader_registry="*uid://d1itjkqy3lwqy"
+Globals="*res://src/core/globals.gd"
+signal_bus="*res://src/core/signal_bus.gd"
+Shader_registry="*res://src/core/shader_registry.gd"
 MCPScreenshot="*res://addons/godot_mcp/mcp_screenshot_service.gd"
 MCPInputService="*res://addons/godot_mcp/mcp_input_service.gd"
 MCPGameInspector="*res://addons/godot_mcp/mcp_game_inspector_service.gd"

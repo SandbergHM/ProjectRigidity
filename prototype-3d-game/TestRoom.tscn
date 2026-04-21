@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://b822m4na3p1wu"]
 
 [ext_resource type="Texture2D" uid="uid://byi6ve1ivm72y" path="res://icon.svg" id="1_cbkwy"]
-[ext_resource type="PackedScene" uid="uid://ex78oe40bj3n" path="res://player.tscn" id="2_cbkwy"]
-[ext_resource type="PackedScene" uid="uid://br5kqtdkorum0" path="res://3d/Objects/Interacteable/Box/box.tscn" id="3_cbkwy"]
+[ext_resource type="PackedScene" uid="uid://ex78oe40bj3n" path="res://src/player/player.tscn" id="2_cbkwy"]
+[ext_resource type="PackedScene" uid="uid://br5kqtdkorum0" path="res://3d/Objects/Interactable/Box/box.tscn" id="3_cbkwy"]
 [ext_resource type="PackedScene" uid="uid://dlydu8h62xit6" path="res://3d/Entities/Enemies/enemy_base.tscn" id="4_fk7fr"]
 [ext_resource type="PackedScene" uid="uid://cfq73wendo5qb" path="res://InventoryAssets/Items/WorldItems/world_item_goo.tscn" id="4_gcbeg"]
 [ext_resource type="PackedScene" uid="uid://e8stqej1psef" path="res://3d/Objects/Destructible/Wooded_box/wooden_box.tscn" id="7_adu6t"]
